@@ -1,0 +1,91 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #C4DAD2;
+    color: #16423C;
+    font-family: Tahoma, sans-serif;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Centers content vertically */
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+ul li {
+    margin: 0 15px;
+}
+
+ul li a {
+    color: #16423C;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+h1, p {
+    margin: 1em 0; /* Center text and spacing */
+    text-align: center;
+}
+
+form {
+    width: 60vw;
+    max-width: 500px;
+    min-width: 300px;
+    margin: 0 auto;
+    padding: 2em;
+    border-radius: 8px;
+}
+
+fieldset {
+    border: none;
+    text-align: center; /* Centers text and elements inside the fieldset */
+}
+
+label {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+input[type="file"], input[type="text"], select, input[type="button"] {
+    display: block; /* Ensures elements take up the full width */
+    width: calc(100% - 20px); /* Adjust width considering padding/margins */
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="file"] {
+    border: #16423C solid 0.2rem;
+}
+
+input[type="button"] {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="button"]:hover {
+    background-color: #45a049; /* Button hover effect */
+}
+
+footer {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.inline {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.5em;
+}

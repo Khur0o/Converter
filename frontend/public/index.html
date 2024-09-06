@@ -1,18 +1,3 @@
-/*
- * Copyright 2024 Khur0o
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -20,8 +5,86 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Converter</title>
             <link rel="stylesheet" href="styles.css">
+            <!--
+            * Copyright 2024 Khur0o
+            *
+            * Licensed under the Apache License, Version 2.0 (the "License");
+            * you may not use this file except in compliance with the License.
+            * You may obtain a copy of the License at
+            *
+            *     http://www.apache.org/licenses/LICENSE-2.0
+            *
+            * Unless required by applicable law or agreed to in writing, software
+            * distributed under the License is distributed on an "AS IS" BASIS,
+            * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+            * See the License for the specific language governing permissions and
+            * limitations under the License.
+            -->
         </head>
         <body>
+            <header>
+                <ul>
+                    <li><a href="#" onclick="switchForm('url')">URL</a></li>
+                    <li><a href="#" onclick="switchForm('file')">FILE</a></li>
+                </ul>
+            </header>
+            
+            <section>
+                <form action="/submit-form" method="POST">
+                    <!-- URL Form -->
+                    <fieldset id="url-form" style="display: block;">
+                        <label><input type="text" placeholder="URL here..."></label>
+                    </fieldset>
+                    <!-- File Form -->
+                    <fieldset id="file-form" style="display: none;">
+                        <label><input type="file"></label>
+                    </fieldset>
+                    <fieldset>
+                        <label><input type="button" value="Convert" onclick="alert('Button clicked!')"></label>
+                    </fieldset>
+        
+                    <!-- File Format Select -->
+    <fieldset>
+        <label for="file-format">File Format:</label>
+        <select id="file-format" name="file-format" onchange="updateQualityOptions()">
+            <option value="">(select one)</option>
+            <option value="mp3">MP3</option>
+            <option value="mp4">MP4</option>
+        </select>
+    </fieldset>
 
+    <!-- Quality Format Selection -->
+    <fieldset id="quality-format" style="display: none;">
+        <p>Quality format (Required)</p>
+
+        <!-- Video Quality -->
+        <label for="video-quality" id="video-quality-label" style="display: none;">Video Quality:</label>
+        <select id="video-quality" name="video-quality" style="display: none;">
+            <option value="">(select one)</option>
+            <option value="360p">360p</option>
+            <option value="480p">480p</option>
+            <option value="720p">720p</option>
+            <option value="1080p">1080p</option>
+        </select>
+
+        <!-- Audio Quality -->
+        <label for="audio-quality" id="audio-quality-label" style="display: none;">Audio Quality:</label>
+        <select id="audio-quality" name="audio-quality" style="display: none;">
+            <option value="">(select one)</option>
+            <option value="800kbps">800kbps</option>
+            <option value="1200kbps">1200kbps</option>
+            <option value="1600kbps">1600kbps</option>
+        </select>
+    </fieldset>
+                </form>
+            </section>
+        
+            <footer>
+                <p>Copyright 2024 Khur0o</p>
+            </footer>
+
+            <script src="/frontend/src/components/Header.js"></script>
+            <script src="/frontend/src/components/ConverterForm.js"></script>
         </body>
+        
     </html>
