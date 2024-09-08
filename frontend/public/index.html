@@ -24,65 +24,72 @@
         <body>
             <header>
                 <ul>
-                    <li><a href="#" onclick="switchForm('url')">URL</a></li>
-                    <li><a href="#" onclick="switchForm('file')">FILE</a></li>
+                    <li><a href="#" onclick="switchForm('url')" class="active">URL</a></li>
+                    <li><a href="#" onclick="switchForm('file')">File</a></li>
                 </ul>
             </header>
-            
+        
             <section>
                 <form action="/submit-form" method="POST">
                     <!-- URL Form -->
-                    <fieldset id="url-form" style="display: block;">
-                        <label><input type="text" placeholder="URL here..."></label>
-                    </fieldset>
-                    <!-- File Form -->
-                    <fieldset id="file-form" style="display: none;">
-                        <label><input type="file"></label>
-                    </fieldset>
-                    <fieldset>
-                        <label><input type="button" value="Convert" onclick="alert('Button clicked!')"></label>
-                    </fieldset>
+                    <div id="url-form" class="form-section">
+                        <label for="url-input">URL:</label>
+                        <input type="text" id="url-input" placeholder="Enter URL here...">
+                    </div>
         
-                    <!-- File Format Select -->
-    <fieldset>
-        <label for="file-format">File Format:</label>
-        <select id="file-format" name="file-format" onchange="updateQualityOptions()">
-            <option value="">(select one)</option>
-            <option value="mp3">MP3</option>
-            <option value="mp4">MP4</option>
-        </select>
-    </fieldset>
-
-    <!-- Quality Format Selection -->
-    <fieldset id="quality-format" style="display: none;">
-        <p>Quality format (Required)</p>
-
-        <!-- Video Quality -->
-        <label for="video-quality" id="video-quality-label" style="display: none;">Video Quality:</label>
-        <select id="video-quality" name="video-quality" style="display: none;">
-            <option value="">(select one)</option>
-            <option value="360p">360p</option>
-            <option value="480p">480p</option>
-            <option value="720p">720p</option>
-            <option value="1080p">1080p</option>
-        </select>
-
-        <!-- Audio Quality -->
-        <label for="audio-quality" id="audio-quality-label" style="display: none;">Audio Quality:</label>
-        <select id="audio-quality" name="audio-quality" style="display: none;">
-            <option value="">(select one)</option>
-            <option value="800kbps">800kbps</option>
-            <option value="1200kbps">1200kbps</option>
-            <option value="1600kbps">1600kbps</option>
-        </select>
-    </fieldset>
+                    <!-- File Form -->
+                    <div id="file-form" class="form-section" style="display: none;">
+                        <label for="file-input">Choose File:</label>
+                        <input type="file" id="file-input">
+                    </div>
+        
+                    <!-- Convert Button -->
+                    <div class="form-section">
+                        <input type="button" value="Convert" onclick="alert('Button clicked!')">
+                    </div>
+        
+                    <!-- File Format Selection -->
+                    <div class="form-section">
+                        <label for="file-format">File Format:</label>
+                        <select id="file-format" name="file-format" onchange="updateQualityOptions()">
+                            <option value="">(Select one)</option>
+                            <option value="mp3">MP3</option>
+                            <option value="mp4">MP4</option>
+                        </select>
+                    </div>
+        
+                    <!-- Quality Selection -->
+                    <div id="quality-format" class="form-section" style="display: none;">
+                        <!-- Video Quality -->
+                        <div id="video-quality-section" style="display: none;">
+                            <label for="video-quality">Video Quality:</label>
+                            <select id="video-quality" name="video-quality">
+                                <option value="">(Select one)</option>
+                                <option value="360p">360p</option>
+                                <option value="480p">480p</option>
+                                <option value="720p">720p</option>
+                                <option value="1080p">1080p</option>
+                            </select>
+                        </div>
+        
+                        <!-- Audio Quality -->
+                        <div id="audio-quality-section" style="display: none;">
+                            <label for="audio-quality">Audio Quality:</label>
+                            <select id="audio-quality" name="audio-quality">
+                                <option value="">(Select one)</option>
+                                <option value="800kbps">800kbps</option>
+                                <option value="1200kbps">1200kbps</option>
+                                <option value="1600kbps">1600kbps</option>
+                            </select>
+                        </div>
+                    </div>
                 </form>
             </section>
         
             <footer>
-                <p>Copyright 2024 Khur0o</p>
+                <p>&copy; 2024 Khur0o</p>
             </footer>
-
+        
             <script src="/frontend/src/components/Header.js"></script>
             <script src="/frontend/src/components/ConverterForm.js"></script>
         </body>
