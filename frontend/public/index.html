@@ -1,3 +1,4 @@
+<!-- Created by Khur0o - 2024 -->
 <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -40,7 +41,7 @@
                     <!-- File Form -->
                     <div id="file-form" class="form-section" style="display: none;">
                         <label for="file-input">Choose File:</label>
-                        <input type="file" id="file-input">
+                        <input type="file" id="file-input" accept="video/*">
                     </div>
         
                     <!-- Convert Button -->
@@ -48,39 +49,49 @@
                         <input type="button" value="Convert" onclick="alert('Button clicked!')">
                     </div>
         
-                    <!-- File Format Selection -->
-                    <div class="form-section">
-                        <label for="file-format">File Format:</label>
-                        <select id="file-format" name="file-format" onchange="updateQualityOptions()">
-                            <option value="">(Select one)</option>
-                            <option value="mp3">MP3</option>
-                            <option value="mp4">MP4</option>
-                        </select>
-                    </div>
-        
-                    <!-- Quality Selection -->
-                    <div id="quality-format" class="form-section" style="display: none;">
-                        <!-- Video Quality -->
-                        <div id="video-quality-section" style="display: none;">
-                            <label for="video-quality">Video Quality:</label>
-                            <select id="video-quality" name="video-quality">
-                                <option value="">(Select one)</option>
-                                <option value="360p">360p</option>
-                                <option value="480p">480p</option>
-                                <option value="720p">720p</option>
-                                <option value="1080p">1080p</option>
-                            </select>
+                    <div class="form-container">
+                        <!-- Left Section Thumbnail -->
+                        <div class="left-picture">
+                            <img src="/frontend/public/assets/6cf73978-4880-45af-81ab-473c6cd0dcd6.jpg" alt="Thumbnail" />
                         </div>
-        
-                        <!-- Audio Quality -->
-                        <div id="audio-quality-section" style="display: none;">
-                            <label for="audio-quality">Audio Quality:</label>
-                            <select id="audio-quality" name="audio-quality">
-                                <option value="">(Select one)</option>
-                                <option value="800kbps">800kbps</option>
-                                <option value="1200kbps">1200kbps</option>
-                                <option value="1600kbps">1600kbps</option>
-                            </select>
+                    
+                        <!-- Right Section for File Format and Quality Selection -->
+                        <div class="right-section">
+                            <!-- File Format Selection -->
+                            <div class="form-section">
+                                <label for="file-format">File Format:</label>
+                                <select id="file-format" name="file-format" onchange="updateQualityOptions()">
+                                    <option value="">(Select one)</option>
+                                    <option value="mp3">MP3</option>
+                                    <option value="mp4">MP4</option>
+                                </select>
+                            </div>
+                    
+                            <!-- Quality Selection -->
+                            <div id="quality-format" class="form-section" style="display: none;">
+                                <!-- Video Quality -->
+                                <div id="video-quality-section" style="display: none;">
+                                    <label for="video-quality">Video Quality:</label>
+                                    <select id="video-quality" name="video-quality">
+                                        <option value="">(Select one)</option>
+                                        <option value="360p">360p</option>
+                                        <option value="480p">480p</option>
+                                        <option value="720p">720p</option>
+                                        <option value="1080p">1080p</option>
+                                    </select>
+                                </div>
+                    
+                                <!-- Audio Quality -->
+                                <div id="audio-quality-section" style="display: none;">
+                                    <label for="audio-quality">Audio Quality:</label>
+                                    <select id="audio-quality" name="audio-quality">
+                                        <option value="">(Select one)</option>
+                                        <option value="800kbps">800kbps</option>
+                                        <option value="1200kbps">1200kbps</option>
+                                        <option value="1600kbps">1600kbps</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
