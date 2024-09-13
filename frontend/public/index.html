@@ -46,13 +46,13 @@
         
                     <!-- Convert Button -->
                     <div class="form-section">
-                        <input type="button" value="Convert" onclick="alert('Button clicked!')">
+                        <input id="convert" type="button" value="Convert">
                     </div>
         
-                    <div class="form-container">
+                    <div id="form-container" class="form-container" style="display: none;">
                         <!-- Left Section Thumbnail -->
                         <div class="left-picture">
-                            <img src="/frontend/public/assets/6cf73978-4880-45af-81ab-473c6cd0dcd6.jpg" alt="Thumbnail" />
+                            <img id="thumbnail-image" src="" alt="YouTube Thumbnail" />
                         </div>
                     
                         <!-- Right Section for File Format and Quality Selection -->
@@ -91,6 +91,9 @@
                                         <option value="1600kbps">1600kbps</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div id="download-button" class="form-section" style="display: none;">
+                                <input id="download" type="button" value="Download" onclick="alert('Button clicked!')">
                             </div>
                         </div>
                     </div>
