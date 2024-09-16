@@ -9,6 +9,7 @@ function switchForm(formType) {
 
     const formContainer = document.getElementById('form-container');
 
+    
     if (formType === 'url') {
         urlForm.style.display = 'block';
         fileForm.style.display = 'none';
@@ -39,4 +40,5 @@ function switchForm(formType) {
 }
 
 // Expose switchForm globally so it can be used in the HTML's onclick attribute
+window.typeUse = true;
 window.switchForm = switchForm;

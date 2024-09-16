@@ -4,14 +4,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const qualityFormatDiv = document.getElementById('quality-format');
     const videoQualitySection = document.getElementById('video-quality-section');
     const audioQualitySection = document.getElementById('audio-quality-section');
+
     const videoQuality = document.getElementById('video-quality');
     const audioQuality = document.getElementById('audio-quality');
     const downloadButton = document.getElementById('download-button');
+
     const convertButton = document.getElementById('convert');
+    
     const urlInput = document.getElementById('url-input');
     const fileInput = document.getElementById('file-input');
     const formContainer = document.getElementById('form-container');
-    const thumbnailImage = document.getElementById('thumbnail-image');
+    const thumbnailImage1 = document.getElementById('thumbnail-image1');
+    const thumbnailImage2 = document.getElementById('thumbnail-image2');
 
     // Hide download button initially
     downloadButton.style.display = 'none';
@@ -83,12 +87,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (videoID) {
                     // Set the YouTube thumbnail URL
                     const thumbnailURL = `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
-                    thumbnailImage.src = thumbnailURL;
+                    thumbnailImage1.src = thumbnailURL;
+                    thumbnailImage2.src = thumbnailURL;
                 } else {
                     // Clear the thumbnail image if the URL is not valid
-                    thumbnailImage.src = '';
+                    thumbnailImage1.src = '';
+                    thumbnailImage2.src = '';
                 }
             } else {
+                // Function to extract local video from local
                 if (fileInput.files.length > 0) {
                     const file = fileInput.files[0];
                     const fileURL = URL.createObjectURL(file);
@@ -122,13 +129,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     } else if (file.type.startsWith('image/')) {
                         // For image files, display them directly
-                        thumbnailImage.src = fileURL;
+                        thumbnailImage1.src = fileURL;
+                        thumbnailImage2.src = fileURL;
                     } else {
                         // For other file types, set a placeholder or default image
-                        thumbnailImage.src = 'path/to/placeholder-image.jpg'; // Adjust path to your placeholder image
+                        thumbnailImage1.src = 'path/to/placeholder-image.jpg'; // Adjust path to your placeholder image
                     }
                 } else {
-                    thumbnailImage.src = '';
+                    thumbnailImage1.src = '';
+                    thumbnailImage2.src = '';
                 }
                 
             }
