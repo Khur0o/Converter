@@ -2,7 +2,6 @@
  Converter web application [Homepage](frontend/public/index.html)
  - youtube to mp3
  - youtube to mp4
- - local video to mp3
- - local video edit quality
+
 
 This project is licensed under the Apache License, Version 2.0. See the [LICENSE](./LICENSE) file for more details.
