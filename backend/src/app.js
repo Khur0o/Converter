@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 const express = require('express');
-const youtubeService = require('./services/youtubeServices');
-require('dotenv').config(); // Ensure .env file is loaded
+const cors = require('cors');
+const youtubeController = require('./controllers/youtubeController');
 
 const app = express();
+const port = 5000;
 
-app.get('/api/youtube/:id', async (req, res) => {
-    const videoID = req.params.id;
-    try {
-        const details = await youtubeService.getYouTubeVideoDetails(videoID);
-        res.json(details);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch video details' });
-    }
+// Enable CORS for all origins (adjust as necessary for your use case)
+app.use(cors());
+
+// Middleware to parse JSON
+app.use(express.json());
+
+// Define routes
+app.get('/api/youtube/:videoID', youtubeController.getYouTubeVideoDetails);
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
-
-app.listen(5000, () => {
-    console.log('Server running on port 5000');
-});
-

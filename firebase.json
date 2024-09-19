@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "converter-fbb27",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

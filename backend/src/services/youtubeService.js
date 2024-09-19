@@ -15,26 +15,33 @@
  */
 
 const axios = require('axios');
-require('dotenv').config(); // Load environment variables from .env file
+require('dotenv').config();
 
 const API_KEY = process.env.YOUTUBE_API_KEY;
-const BASE_URL = 'https://www.googleapis.com/youtube/v3';
+const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/videos';
 
-async function getYouTubeVideoDetails(videoID) {
+exports.fetchVideoDetails = async (videoID) => {
     try {
-        const response = await axios.get(`${BASE_URL}/videos`, {
+        const response = await axios.get(YOUTUBE_API_URL, {
             params: {
-                part: 'snippet,contentDetails,statistics',
+                part: 'snippet',
                 id: videoID,
-                key: API_KEY
-            }
+                key: API_KEY,
+            },
         });
-        return response.data;
+        const videoDetails = response.data.items[0];
+        if (videoDetails) {
+            return {
+                title: videoDetails.snippet.title,
+                description: videoDetails.snippet.description,
+                thumbnail: videoDetails.snippet.thumbnails.high.url,
+            };
+        }
+        return null;
     } catch (error) {
-        throw new Error('Failed to fetch YouTube video details');
+        console.error('Error fetching video details from YouTube API:', error);
+        throw error;
     }
-}
-
-module.exports = {
-    getYouTubeVideoDetails
 };
+
+

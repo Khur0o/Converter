@@ -1,78 +1,110 @@
-/*
- * Copyright 2024 Khur0o
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 document.addEventListener('DOMContentLoaded', function () {
     // Cache DOM elements
     const fileFormat = document.getElementById('file-format');
     const qualityFormatDiv = document.getElementById('quality-format');
     const videoQualitySection = document.getElementById('video-quality-section');
     const audioQualitySection = document.getElementById('audio-quality-section');
-
     const videoQuality = document.getElementById('video-quality');
     const audioQuality = document.getElementById('audio-quality');
     const downloadButton = document.getElementById('download-button');
-
     const convertButton = document.getElementById('convert');
-    
+
     const urlInput = document.getElementById('url-input');
     const fileInput = document.getElementById('file-input');
+
     const formContainer = document.getElementById('form-container');
     const thumbnailImage1 = document.getElementById('thumbnail-image1');
     const thumbnailImage2 = document.getElementById('thumbnail-image2');
+    const videoTitleElement = document.getElementById('youtube-title');
 
     // Hide download button initially
     downloadButton.style.display = 'none';
 
-    // Function to show the correct quality section based on file format
+    // Function to populate video quality options
+    function populateVideoQualityOptions(qualities) {
+        videoQuality.innerHTML = '<option value="">(Select one)</option>';
+        qualities.forEach(q => {
+            const option = document.createElement('option');
+            option.value = q;
+            option.textContent = q;
+            videoQuality.appendChild(option);
+        });
+    }
+
+    // Function to populate audio quality options
+    function populateAudioQualityOptions(qualities) {
+        audioQuality.innerHTML = '<option value="">(Select one)</option>';
+        qualities.forEach(q => {
+            const option = document.createElement('option');
+            option.value = q;
+            option.textContent = q;
+            audioQuality.appendChild(option);
+        });
+    }
+
+    // Show the correct quality section based on file format
     function updateQualityOptions() {
-        // Hide all sections initially
         qualityFormatDiv.style.display = 'none';
         videoQualitySection.style.display = 'none';
         audioQualitySection.style.display = 'none';
 
-        // Determine the selected file format
-        switch (fileFormat.value) {
-            case 'mp3':
-                qualityFormatDiv.style.display = 'block';
-                audioQualitySection.style.display = 'block';
-                break;
-            case 'mp4':
-                qualityFormatDiv.style.display = 'block';
-                videoQualitySection.style.display = 'block';
-                break;
+        if (fileFormat.value === 'mp3') {
+            qualityFormatDiv.style.display = 'block';
+            audioQualitySection.style.display = 'block';
+        } else if (fileFormat.value === 'mp4') {
+            qualityFormatDiv.style.display = 'block';
+            videoQualitySection.style.display = 'block';
+            // Populate video quality options (for example purposes)
+            populateVideoQualityOptions(['360p', '480p', '720p', '1080p']);
         }
     }
 
-    // Function to check if quality is selected and show download button
+    // Check if quality is selected and show download button
     function checkQualitySelection() {
-        const audioSelected = fileFormat.value === 'mp3' && audioQuality.value !== "";
-        const videoSelected = fileFormat.value === 'mp4' && videoQuality.value !== "";
-
+        const audioSelected = fileFormat.value === 'mp3' && audioQuality.value;
+        const videoSelected = fileFormat.value === 'mp4' && videoQuality.value;
         downloadButton.style.display = (audioSelected || videoSelected) ? 'block' : 'none';
     }
 
-    // Function to validate form inputs before conversion
+    // Validate form inputs before conversion
     function validateForm() {
-        if (!urlInput.value.trim() && !fileInput.value) {
+        if (!urlInput.value.trim() && !fileInput.files.length) {
             alert('Please enter a URL or select a file.');
             return false;
         }
-        
-        console.log('URL or file input are filled, proceeding with conversion.');
         return true;
     }
+
+    // Extract video ID from YouTube URL
+    function getYouTubeVideoID(url) {
+        const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        const match = url.match(regex);
+        return match ? match[1] : null;
+    }
+
+    // Fetch YouTube video details (including title)
+    function fetchYouTubeVideoDetails(videoID) {
+        return fetch(`http://localhost:5000/api/youtube/${videoID}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.title) {
+                    return data;
+                } else {
+                    throw new Error('Video details not found');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching video details:', error);
+                return null;
+            });
+    }
+    
+
 
     // Event listener for file format selection
     fileFormat.addEventListener('change', updateQualityOptions);
@@ -84,77 +116,66 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for convert button
     convertButton.addEventListener('click', function () {
         if (validateForm()) {
-            // Proceed with conversion logic here
             console.log('Starting conversion...');
             formContainer.style.display = 'flex';
 
-            // Retrieve the current value of typeUse
             const typeUse = window.typeUse;
-
             if (typeUse) {
-                // Function to extract video ID from YouTube URL
-                function getYouTubeVideoID(url) {
-                    const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-                    const match = url.match(regex);
-                    return match ? match[1] : null;
-                }
                 const videoID = getYouTubeVideoID(urlInput.value);
                 if (videoID) {
-                    // Set the YouTube thumbnail URL
-                    const thumbnailURL = `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
-                    thumbnailImage1.src = thumbnailURL;
-                    thumbnailImage2.src = thumbnailURL;
+                    fetchYouTubeVideoDetails(videoID).then(details => {
+                        if (details) {
+                            // Set the YouTube thumbnail URL
+                            const thumbnailURL = `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
+                            thumbnailImage1.src = thumbnailURL;
+                            thumbnailImage2.src = thumbnailURL;
+
+                            // Display the YouTube video title
+                            videoTitleElement.textContent = details.title;
+                        } else {
+                            thumbnailImage1.src = '';
+                            thumbnailImage2.src = '';
+                            videoTitleElement.textContent = 'No title available';
+                        }
+                    });
                 } else {
-                    // Clear the thumbnail image if the URL is not valid
                     thumbnailImage1.src = '';
                     thumbnailImage2.src = '';
+                    videoTitleElement.textContent = 'Invalid URL';
                 }
             } else {
-                // Function to extract local video from local
                 if (fileInput.files.length > 0) {
                     const file = fileInput.files[0];
                     const fileURL = URL.createObjectURL(file);
-                
-                    // Check if the file is a video
+
                     if (file.type.startsWith('video/')) {
-                        // Create a video element and a canvas element
                         const video = document.createElement('video');
                         const canvas = document.createElement('canvas');
                         const context = canvas.getContext('2d');
-                
-                        // Set up the video element
+
                         video.src = fileURL;
                         video.addEventListener('loadeddata', () => {
-                            // Set canvas size to match video dimensions
                             canvas.width = video.videoWidth;
                             canvas.height = video.videoHeight;
-                
-                            // Draw the first frame of the video on the canvas
-                            video.currentTime = 1; // Skip to 1 second to get a frame
+                            video.currentTime = 1;
                             video.addEventListener('seeked', () => {
                                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                                // Get the data URL of the canvas content
                                 const thumbnailURL = canvas.toDataURL('image/jpeg');
-                                thumbnailImage.src = thumbnailURL;
-                
-                                // Clean up
+                                thumbnailImage1.src = thumbnailURL;
+                                thumbnailImage2.src = thumbnailURL;
                                 URL.revokeObjectURL(fileURL);
                             });
                         });
                     } else if (file.type.startsWith('image/')) {
-                        // For image files, display them directly
                         thumbnailImage1.src = fileURL;
                         thumbnailImage2.src = fileURL;
                     } else {
-                        // For other file types, set a placeholder or default image
-                        thumbnailImage1.src = 'path/to/placeholder-image.jpg'; // Adjust path to your placeholder image
+                        thumbnailImage1.src = 'path/to/placeholder-image.jpg';
                     }
                 } else {
                     thumbnailImage1.src = '';
                     thumbnailImage2.src = '';
                 }
-                
             }
         }
     });
