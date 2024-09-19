@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Converter</title>
-    <link rel="stylesheet" href="styles.css">
     <!--
     * Copyright 2024 Khur0o
     *
@@ -20,93 +13,19 @@
     * See the License for the specific language governing permissions and
     * limitations under the License.
     -->
-</head>
-<body>
-    <header>
-        <ul>
-            <li><a href="#" onclick="switchForm('url')" class="active">URL</a></li>
-            <li><a href="#" onclick="switchForm('file')">File</a></li>
-        </ul>
-    </header>            
-
-    <section>
-        <form action="/submit-form" method="POST">
-            <div id="converterUI">
-                <!-- URL Form -->
-                <div id="url-form" class="form-section">
-                    <label for="url-input">URL:</label>
-                    <input type="text" id="url-input" placeholder="Enter URL here...">
-                </div>
-
-                <!-- File Form -->
-                <div id="file-form" class="form-section" style="display: none;">
-                    <label for="file-input">Choose File:</label>
-                    <input type="file" id="file-input" accept="video/*">
-                </div>
-
-                <!-- Convert Button -->
-                <div class="form-section">
-                    <input id="convert" type="button" value="Convert">
-                </div>
-
-                <div id="form-container" class="form-container" style="display: none;">
-                    <!-- Left Section Thumbnail -->
-                    <div class="left-picture">
-                        <img id="thumbnail-image1" src="" alt="YouTube Thumbnail" />
-                        <p id="youtube-title">Loading...</p>
-                    </div>
-                
-                    <!-- Right Section for File Format and Quality Selection -->
-                    <div class="right-section">
-                        <!-- File Format Selection -->
-                        <div class="form-section">
-                            <label for="file-format">File Format:</label>
-                            <select id="file-format" name="file-format" onchange="updateQualityOptions()">
-                                <option value="">(Select one)</option>
-                                <option value="mp3">MP3</option>
-                                <option value="mp4">MP4</option>
-                            </select>
-                        </div>
-
-                        <!-- Quality Selection -->
-                        <div id="quality-format" class="form-section" style="display: none;">
-                            <!-- Video Quality -->
-                            <div id="video-quality-section" style="display: none;">
-                                <label for="video-quality">Video Quality:</label>
-                                <select id="video-quality" name="video-quality">
-                                    <option value="">(Select one)</option>
-                                    <!-- Options will be populated dynamically -->
-                                </select>
-                            </div>
-
-                            <!-- Audio Quality -->
-                            <div id="audio-quality-section" style="display: none;">
-                                <label for="audio-quality">Audio Quality:</label>
-                                <select id="audio-quality" name="audio-quality">
-                                    <option value="">(Select one)</option>
-                                    <!-- Options will be populated dynamically -->
-                                </select>
-                            </div>
-                        </div>
-                        <div id="download-button" class="form-section" style="display: none;">
-                            <input id="download" type="button" value="Download" onclick="alert('Button clicked!')">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="downloadUI">
-                <div class="download-picture">
-                    <img id="thumbnail-image2" src="" alt="YouTube Thumbnail" />
-                </div>
-            </div>
-        </form>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Khur0o</p>
-    </footer>
-    <script src="/public/backend/src/controllers/firebaseController.js"></script>      
-    <script src="/public/frontend/src/components/ConverterForm.js"></script>
-    <script src="/public/frontend/src/components/Header.js"></script>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Redirecting...</title>
+        <script>
+            // Redirect immediately when the page loads
+            window.location.href = "/public/frontend/public/index.html";
+        </script>
+    </head>
+    <body>
+        <p>Redirecting to the new page...</p>
+    </body>
+    </html>
+    
