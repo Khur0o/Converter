@@ -1,11 +1,17 @@
 {
   "hosting": {
     "site": "converter-fbb27",
-    "public": "public/frontend/public",
+    "public": "frontend/public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
