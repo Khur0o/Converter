@@ -1,7 +1,7 @@
 {
   "hosting": {
     "site": "converter-fbb27",
-    "public": "public/frontend/public",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
