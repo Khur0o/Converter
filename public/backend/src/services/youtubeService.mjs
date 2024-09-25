@@ -5,7 +5,9 @@ dotenv.config({ path: './config/YOUTUBE_API_KEY.env' }); // Ensure correct path
 
 export async function fetchVideoDetails(videoID) {
     const apiKey = process.env.YOUTUBE_API_KEY; // Ensure this is set in your environment variables
-    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoID}&part=snippet&key=${apiKey}`;
+    //const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoID}&part=snippet&key=${apiKey}`;
+    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoID}&part=snippet&key=AIzaSyCqYyMB_dOyM21Zlu88ICRbMRNQQd3Sphc`;
+    console.log("Test API KEY: " + videoID);
     
     try {
         const response = await fetch(url);

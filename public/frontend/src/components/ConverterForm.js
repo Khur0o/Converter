@@ -108,10 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (validateForm()) {
             console.log('Starting conversion...');
             formContainer.style.display = 'flex';
-
             const typeUse = window.typeUse; // Ensure this is defined in your context
+            console.log(typeUse);
             if (typeUse) {
                 const videoID = getYouTubeVideoID(urlInput.value);
+                console.log('VideoID: ' + videoID);
                 if (videoID) {
                     // Call the fetchYouTubeVideoDetails function here
                     fetchYouTubeVideoDetails(videoID).then(details => {
