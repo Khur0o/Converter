@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const thumbnailImage2 = document.getElementById('thumbnail-image2');
     const videoTitleElement = document.getElementById('youtube-title');
 
-    // Hide download button initially
+    // Hide download button and form container initially
     downloadButton.style.display = 'none';
-
+    formContainer.style.display = 'none';
+    
     // Function to populate video quality options
     function populateVideoQualityOptions(qualities) {
         videoQuality.innerHTML = '<option value="">(Select one)</option>';
@@ -107,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (validateForm()) {
             console.log('Starting conversion...');
             formContainer.style.display = 'flex';
-    
+
             const typeUse = window.typeUse; // Ensure this is defined in your context
             if (typeUse) {
                 const videoID = getYouTubeVideoID(urlInput.value);
@@ -119,9 +120,24 @@ document.addEventListener('DOMContentLoaded', function () {
                             const thumbnailURL = `https://img.youtube.com/vi/${videoID}/maxresdefault.jpg`;
                             thumbnailImage1.src = thumbnailURL;
                             thumbnailImage2.src = thumbnailURL;
-    
+
                             // Display the YouTube video title
                             videoTitleElement.textContent = details.title;
+
+                            // Send the video ID to the backend for further processing
+                            fetch(`http://localhost:5000/api/processVideoID`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ videoID })
+                            }).then(response => {
+                                if (response.ok) {
+                                    console.log('Video ID processed successfully.');
+                                } else {
+                                    console.error('Error processing video ID.');
+                                }
+                            }).catch(error => {
+                                console.error('Error sending video ID:', error);
+                            });
                         } else {
                             thumbnailImage1.src = '';
                             thumbnailImage2.src = '';
@@ -139,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     videoTitleElement.textContent = 'Invalid URL';
                 }
             } else {
-                    // Function to extract local video from local
+                // Function to extract local video from local
                 if (fileInput.files.length > 0) {
                     const file = fileInput.files[0];
                     const fileURL = URL.createObjectURL(file);
